@@ -1,11 +1,15 @@
 # PINN-Jet-Engine-Predictive-Maintenance
-📋 Table of Contents
+
+Physics-Informed Neural Network (PINN) based predictive maintenance for jet engines — real-time sensor health monitoring and failure prediction.
+
+📋 **Table of Contents**
 
 Overview
 Key Features
 What is PINN?
 System Architecture
 Installation
+**How to Run** ← start here
 Quick Start
 Usage Guide
 Project Structure
@@ -18,6 +22,69 @@ Contributing
 License
 Contact
 
+
+🚀 How to Run
+
+Follow these steps to run the project on your machine.
+
+**Prerequisites:** Python 3.8+, pip
+
+**Step 1 — Clone and enter the project**
+```bash
+git clone https://github.com/yourusername/PINN-Jet-Engine-Predictive-Maintenance.git
+cd PINN-Jet-Engine-Predictive-Maintenance
+```
+*(Or extract the ZIP and `cd` into the project folder.)*
+
+**Step 2 — Create a virtual environment (recommended)**
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**Step 3 — Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+**Step 4 — Train the PINN model (first time only)**  
+Open and run the training notebook to generate the model and scalers:
+```bash
+jupyter notebook
+```
+- Open **`PINN.ipynb`**
+- Run **Run → Run All Cells**
+- Wait for training to finish (about 5–10 minutes on CPU, 2–3 minutes on GPU).  
+- This creates in the **project folder**:
+  - `jet_engine_pinn_model.h5`
+  - `scaler_X.pkl`
+  - `scaler_y.pkl`
+
+**Step 5 — Launch the dashboard**
+```bash
+streamlit run app.py
+```
+- The app opens at **http://localhost:8501**
+- Use the sidebar to switch between **Real-Time Monitoring**, **Historical Analysis**, and **Manual Input**
+
+**Optional — Use a different port**
+```bash
+streamlit run app.py --server.port 8502
+```
+
+**Summary of run commands**
+| Action               | Command |
+|----------------------|--------|
+| Install dependencies | `pip install -r requirements.txt` |
+| Train model          | Open `PINN.ipynb` in Jupyter → Run All |
+| Start dashboard      | `streamlit run app.py` |
+
+---
 
 🎯 Overview
 This project implements a state-of-the-art Physics-Informed Neural Network (PINN) to predict jet engine sensor failures before they occur, enabling proactive maintenance and preventing costly downtime.
@@ -131,10 +198,12 @@ pip package manager
 8GB RAM minimum (16GB recommended)
 GPU optional (speeds up training)
 
-Step 1: Clone Repository
-bashgit clone https://github.com/yourusername/jet-engine-pinn-maintenance.git
-cd jet-engine-pinn-maintenance
-Step 2: Create Virtual Environment (Recommended)
+Step 1: Clone repository
+```bash
+git clone https://github.com/yourusername/PINN-Jet-Engine-Predictive-Maintenance.git
+cd PINN-Jet-Engine-Predictive-Maintenance
+```
+Step 2: Create virtual environment (recommended)
 bash# Windows
 python -m venv venv
 venv\Scripts\activate
@@ -143,37 +212,36 @@ venv\Scripts\activate
 python3 -m venv venv
 source venv/bin/activate
 Step 3: Install Dependencies
-bashpip install -r requirements.txt
-Requirements.txt Contents:
-txtstreamlit==1.28.0
-tensorflow==2.13.0
-numpy==1.24.3
-pandas==2.0.3
-plotly==5.17.0
-scikit-learn==1.3.0
-matplotlib==3.7.2
-seaborn==0.12.2
-python-pptx==0.6.21
+```bash
+pip install -r requirements.txt
+```
+
+**Requirements (see `requirements.txt`):** streamlit, tensorflow, numpy, pandas, plotly, scikit-learn, matplotlib, seaborn, jupyter
 
 🎬 Quick Start
 1. Train the PINN Model (First Time Only)
-bashjupyter notebook
-# Open: jet_engine_pinn_training.ipynb
-# Run all cells to generate:
-#   - jet_engine_pinn_model.h5
-#   - scaler_X.pkl
-#   - scaler_y.pkl
-Expected Training Time: 5-10 minutes on CPU, 2-3 minutes on GPU
-Output Files:
+```bash
+jupyter notebook
+```
+- Open **`PINN.ipynb`** (not jet_engine_pinn_training.ipynb)
+- Run **Run → Run All Cells** to generate:
+  - `jet_engine_pinn_model.h5`
+  - `scaler_X.pkl`
+  - `scaler_y.pkl`
+- Keep these files in the **same folder as `app.py`** (project root).
+Expected Training Time: 5–10 minutes on CPU, 2–3 minutes on GPU.
 
-jet_engine_pinn_model.h5 (20-30 MB) - Trained PINN model
-scaler_X.pkl (5 KB) - Input feature scaler
-scaler_y.pkl (5 KB) - Output health scaler
-Training visualizations (PNG files)
+Output files (in project folder):
+- `jet_engine_pinn_model.h5` (20–30 MB) — Trained PINN model
+- `scaler_X.pkl` (≈5 KB) — Input feature scaler
+- `scaler_y.pkl` (≈5 KB) — Output health scaler
 
 2. Launch Dashboard
-bashstreamlit run app.py
-The dashboard will open automatically at: http://localhost:8501
+```bash
+streamlit run app.py
+```
+The dashboard opens at **http://localhost:8501**
+
 3. Start Monitoring
 
 Select "Real-Time Monitoring" mode
@@ -245,38 +313,22 @@ Custom diagnostics
 
 
 📁 Project Structure
-jet-engine-pinn-maintenance/
+```
+PINN-Jet-Engine-Predictive-Maintenance/
 │
-├── app.py                              # Main Streamlit dashboard
-├── jet_engine_pinn_training.ipynb      # Model training notebook
-├── generate_pinn_presentation.py       # PPT generator script
-├── requirements.txt                    # Python dependencies
-├── README.md                           # This file
+├── app.py                    # Main Streamlit dashboard — run with: streamlit run app.py
+├── PINN.ipynb                # Model training notebook — run all cells to train and save model
+├── requirements.txt          # Python dependencies — pip install -r requirements.txt
+├── README.md                 # This file
+├── GITHUB_DEPLOYMENT_GUIDE.md
+├── ARCHITECTURE_AND_PLAN.md
 │
-├── models/                             # Trained models directory
-│   ├── jet_engine_pinn_model.h5       # PINN model
-│   ├── scaler_X.pkl                   # Input scaler
-│   └── scaler_y.pkl                   # Output scaler
+├── jet_engine_pinn_model.h5  # Created by PINN.ipynb (after first training)
+├── scaler_X.pkl              # Created by PINN.ipynb
+├── scaler_y.pkl              # Created by PINN.ipynb
 │
-├── data/                               # Data directory
-│   ├── synthetic_engine_data.csv      # Generated training data
-│   └── historical/                    # Historical exports
-│
-├── outputs/                            # Generated outputs
-│   ├── training_history.png           # Training metrics
-│   ├── prediction_accuracy.png        # Accuracy plots
-│   ├── sensor_health_timeline.png     # Timeline charts
-│   ├── sensor_health_heatmap.png      # Correlation heatmap
-│   └── PINN_Presentation.pptx         # PowerPoint presentation
-│
-├── docs/                               # Documentation
-│   ├── PINN_Technical_Guide.md        # Technical documentation
-│   ├── Management_Explanation.md      # Business documentation
-│   └── API_Reference.md               # API documentation
-│
-└── tests/                              # Unit tests
-    ├── test_model.py                  # Model tests
-    └── test_dashboard.py              # Dashboard tests
+└── (optional) aziro-logo.png # Logo for sidebar; place in project folder
+```
 
 🎓 Model Training
 Training Process
@@ -323,15 +375,11 @@ Validation split: 20%
 
 
 Retraining the Model
-To retrain with your own data:
-python# In jet_engine_pinn_training.ipynb
-# Replace synthetic data generation with:
+To retrain with your own data, in **PINN.ipynb** replace the synthetic data generation with:
+```python
 df = pd.read_csv('your_real_engine_data.csv')
-
-# Required columns:
-# - temperature, pressure, vibration, rpm, fuel_flow, cycle
-# - temp_health, pressure_health, vibration_health, 
-#   rpm_health, fuel_health, overall_health
+```
+Required columns: `temperature`, `pressure`, `vibration`, `rpm`, `fuel_flow`, `cycle`, and health columns (`temp_health`, `pressure_health`, etc., `overall_health`). Then run all cells. Ensure the notebook saves `jet_engine_pinn_model.h5`, `scaler_X.pkl`, and `scaler_y.pkl` in the **project folder** (same directory as `app.py`).
 
 📊 Dashboard Features
 1. Gauge Charts
@@ -416,87 +464,32 @@ Safety Improvements
 MetricBefore PINNAfter PINNImprovementUnexpected Failures20/year4/year80% ↓Safety Incidents5/year1/year80% ↓Emergency Landings8/year2/year75% ↓Maintenance Accuracy60%92%53% ↑
 
 🔧 Troubleshooting
-Issue 1: Model File Not Found
-Error:
-Model file not found at: D:\Desktop\PINN\jet_engine_pinn_model.h5
-Solutions:
+**Issue 1: Model file not found**
+- **Cause:** Dashboard looks for `jet_engine_pinn_model.h5` in the **same folder as `app.py`**.
+- **Fix:** Run **PINN.ipynb** (Run All Cells) and leave the generated files in the project root. Then run `streamlit run app.py` from that same folder.
 
-Train the model first using jet_engine_pinn_training.ipynb
-Verify the model path in app.py matches your file location
-Ensure all 3 files exist:
-
-jet_engine_pinn_model.h5
-scaler_X.pkl
-scaler_y.pkl
+**Issue 2: Scaler files not found**
+- Run **PINN.ipynb** completely so it saves `scaler_X.pkl` and `scaler_y.pkl` in the project folder. Without them, predictions may be wrong.
 
 
-
-
-Issue 2: Scaler Files Not Found
-Error:
-Scaler files not found. Using default scalers.
-Impact: Predictions may be inaccurate
-Solutions:
-
-Run training notebook completely to generate scalers
-Check scaler file paths in app.py
-Copy scaler files to the correct directory
-
-
-Issue 3: Import Errors
-Error:
-ModuleNotFoundError: No module named 'tensorflow'
-Solutions:
-bash# Reinstall dependencies
+**Issue 3: Import errors**
+```bash
 pip install -r requirements.txt
+```
+- On Windows if TensorFlow fails: `pip install tensorflow-cpu==2.13.0`
+- On macOS M1/M2: `pip install tensorflow-macos==2.13.0` and `pip install tensorflow-metal==1.0.1`
 
-# If TensorFlow issues persist (Windows):
-pip install tensorflow-cpu==2.13.0
-
-# macOS M1/M2:
-pip install tensorflow-macos==2.13.0
-pip install tensorflow-metal==1.0.1
-
-Issue 4: Dashboard Won't Load
-Error: Blank page or loading forever
-Solutions:
-
-Clear Streamlit cache:
-
-bash   streamlit cache clear
-
-Check port availability:
-
-bash   streamlit run app.py --server.port 8502
-
-Restart the application
+**Issue 4: Dashboard won’t load**
+- Clear cache: `streamlit cache clear`
+- Use another port: `streamlit run app.py --server.port 8502`
 
 
-Issue 5: Predictions Are All 0% or 100%
-Problem: Scaler mismatch
-Solutions:
-
-Verify sensor readings are in correct units:
-
-Temperature: 400-700°C
-Pressure: 10-20 PSI
-Vibration: 0.1-2.0g
-RPM: 3000-7000
-Fuel Flow: 50-150 kg/h
+**Issue 5: Predictions all 0% or 100%**
+- Check units: Temperature 400–700°C, Pressure 10–20 PSI, Vibration 0.1–2.0 g, RPM 3000–7000, Fuel 50–150 kg/h. Retrain if your data format changed.
 
 
-Retrain model if data format changed
-Check scaler files match model version
-
-
-Issue 6: Logo Not Displaying
-Error: Aziro logo not showing in sidebar
-Solutions:
-
-Verify logo file exists: D:\Downloads\aziro-logo.png
-Check file extension (PNG, JPG, ICO)
-Use absolute path with raw string: r"D:\Downloads\aziro-logo.png"
-Alternative: Use online URL
+**Issue 6: Logo not showing**
+- Place `aziro-logo.png` in the **project folder** (same directory as `app.py`).
 
 
 🤝 Contributing
