@@ -96,9 +96,9 @@ def load_model_and_scalers():
     """Load trained PINN model and scalers from local path"""
     try:
         # Model path
-        model_path = r"jet_engine_pinn_model.h5"
-        scaler_x_path = r"scaler_X.pkl"
-        scaler_y_path = r"scaler_y.pkl"
+        model_path = r"sample/jet_engine_pinn_model.h5"
+        scaler_x_path = r"sample/scaler_X.pkl"
+        scaler_y_path = r"sample/scaler_y.pkl"
         
         # Check if files exist
         if not os.path.exists(model_path):
@@ -406,7 +406,7 @@ def main():
     
     # Sidebar
     # Try to load Aziro logo, fallback to placeholder if not found
-    logo_path = r"D:\Downloads\aziro-logo.png"
+    logo_path = r"\aziro-logo.png"
     if os.path.exists(logo_path):
         st.sidebar.image(logo_path, use_container_width=True)
     else:
@@ -841,3 +841,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
